@@ -37,6 +37,8 @@ class Character {
       this.health = 100;
       this.inventory = [];
     }
+    static maxHealth = 100;
+    static roles = ["Fighter", "Healer", "Wizard"];
 
     roll (mod = 0) {
         const result = Math.floor(Math.random() * 20) + 1 + mod;
@@ -61,7 +63,7 @@ class Adventurer extends Character {
     constructor (name, role) {
       super(name);
       // Adventurers have specialized roles.
-      this.role = role;
+      this.role = Character.roles.find((characterRole) => characterRole == role);
       // Every adventurer starts with a bed and 50 gold coins.
       this.inventory.push("bedroll", "50 gold coins");
       // Adventurers can have compnions with them.
@@ -86,6 +88,7 @@ class Companion extends Character {
     }
 }
 
-const robin = new Adventurer ("Robin", "Scout");
+const robin = new Adventurer ("Robin", "Fighter");
 const leo = new Companion ("Leo", "Cat");
 const frank = new Companion ("Frank", "Flea");
+robin.recruit(leo);
