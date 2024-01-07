@@ -44,14 +44,48 @@ class Character {
     }
 }
 
-const robin = new Character("Robin");
-robin.inventory = ["sword", "potion", "artifact"];
-const leo = robin.companion = new Character("Leo");
-robin.companion.type = "Cat";
-const frank = robin.companion.companion = new Character("Frank");
-robin.companion.companion.type = "Flea";
-robin.companion.companion.inventory = ["small hat", "sunglasses"];
+// const robin = new Character("Robin");
+// robin.inventory = ["sword", "potion", "artifact"];
+// const leo = robin.companion = new Character("Leo");
+// robin.companion.type = "Cat";
+// const frank = robin.companion.companion = new Character("Frank");
+// robin.companion.companion.type = "Flea";
+// robin.companion.companion.inventory = ["small hat", "sunglasses"];
 
-robin.roll();
-leo.roll();
-frank.roll();
+// robin.roll();
+// leo.roll();
+// frank.roll();
+
+//Part 3
+class Adventurer extends Character {
+    constructor (name, role) {
+      super(name);
+      // Adventurers have specialized roles.
+      this.role = role;
+      // Every adventurer starts with a bed and 50 gold coins.
+      this.inventory.push("bedroll", "50 gold coins");
+      // Adventurers can have compnions with them.
+      this.companions = [];
+    }
+    // Adventurers have the ability to scout ahead of them.
+    scout () {
+      console.log(`${this.name} is scouting ahead...`);
+      super.roll();
+    }
+    // Adventurers can recruit other companions
+    recruit (companion) {
+        this.companions.push(companion);
+        console.log(`${companion.name} has joined ${this.name}!`);
+    }
+}
+
+class Companion extends Character {
+    constructor (name, species) {
+        super(name);
+        this.species = species;
+    }
+}
+
+const robin = new Adventurer ("Robin", "Scout");
+const leo = new Companion ("Leo", "Cat");
+const frank = new Companion ("Frank", "Flea");
